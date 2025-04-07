@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "otp (Package)": {
+      "commandName": "MsixPackage",
+      "doNotLaunchApp": true
+    },
+    "otp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
