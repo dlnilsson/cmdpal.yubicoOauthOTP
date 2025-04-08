@@ -10,10 +10,8 @@
 
   <Identity
     Name="otp"
-    Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+    Publisher="CN=Daniel Nilsson, C=SE"
     Version="0.0.1.0" />
-  <!-- When you're ready to publish your extension, you'll need to change the
-       Publisher= to match your own identity -->
 
   <Properties>
     <DisplayName>ykman OTP</DisplayName>
