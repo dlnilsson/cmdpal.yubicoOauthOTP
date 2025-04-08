@@ -37,7 +37,7 @@ internal sealed partial class otpPage : ListPage
     public otpPage()
     {
         Icon = IconHelpers.FromRelativePath("Assets\\Yubico.png");
-        Title = "ykman OTP";
+        Title = "OTP";
         Name = "Generate codes from OATH accounts stored on the YubiKey.";
         IsLoading = true;
         ShowDetails = true;
@@ -94,7 +94,7 @@ internal sealed partial class otpPage : ListPage
         {
             Title = account.Name,
             Subtitle = account.Code,
-        }; 
+        };
     }
 
     private List<Account> GetAccounts(string YkmanPath, string Device)

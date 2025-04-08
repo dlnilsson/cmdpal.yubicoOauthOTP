@@ -16,12 +16,12 @@ public partial class otpCommandsProvider : CommandProvider
 
     public otpCommandsProvider()
     {
-        DisplayName = "ykman OTP";
+        DisplayName = "OTP";
         Icon = IconHelpers.FromRelativePath("Assets\\Yubico Logo Small (PNG).png");
         _commands = [
             new CommandItem(new otpPage()) { Title = DisplayName},
-            new CommandItem(new otpSettingsPage()) 
-            { 
+            new CommandItem(new otpSettingsPage())
+            {
                 Title = "ykman otp settings",
                 Subtitle = "set custom ykman path or device id",
             },

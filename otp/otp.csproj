@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Content Include="Assets\Yubico.png" />
-    <Content Include="Assets\Yubico Logo Small (PNG).png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,7 +36,6 @@
     <PackageReference Include="Microsoft.Windows.CsWinRT" />
     <PackageReference Include="Microsoft.WindowsAppSDK" />
     <PackageReference Include="Microsoft.Web.WebView2" />
-    <PackageReference Include="Svg" />
     <PackageReference Include="System.Text.Json" />
     <PackageReference Include="Shmuelie.WinRTServer" />
   </ItemGroup>
@@ -46,18 +44,9 @@
 
   <ItemGroup>
     <Reference Include="System.Diagnostics.Process" />
-    <Reference Include="Svg, Version=3.4.0, Culture=neutral, PublicKeyToken=12a0bac221edeae2">
-      <HintPath>$(UserProfile)\.nuget\packages\svg\3.4.0\lib\netstandard2.0\Svg.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
   </ItemGroup>
 
-    <ItemGroup>
-    <!-- Copy Svg.dll to output directory -->
-    <None Include="$(UserProfile)\.nuget\packages\svg\3.4.0\lib\netstandard2.0\Svg.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+
   <!--
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
     Explorer "Package and Publish" context menu entry to be enabled for this project even if
@@ -74,7 +63,5 @@
     <!-- Suppress DynamicallyAccessedMemberTypes.PublicParameterlessConstructor in fallback code path of Windows SDK projection -->
     <WarningsNotAsErrors>IL2081</WarningsNotAsErrors>
 
-    <PublishTrimmed>true</PublishTrimmed>
-    <PublishSingleFile>true</PublishSingleFile>
   </PropertyGroup>
 </Project>
