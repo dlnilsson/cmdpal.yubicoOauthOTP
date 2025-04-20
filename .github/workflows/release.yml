@@ -12,7 +12,7 @@ jobs:
       id-token: write
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup .NET
@@ -20,33 +20,30 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
-      - name: Restore packages
+      - name: Restore dependencies
         run: dotnet restore otp.sln
 
-      - name: Build for x64 Release
-        run: dotnet build --configuration Release --no-restore -p Platform=x64 otp.sln
-
-      - name: Locate .msix file
-        id: locate
+      - name: Publish MSIX package
         run: |
-          $msix = Get-ChildItem -Recurse -Filter *.msix | Select-Object -First 1
-          if (!(Test-Path $msix.FullName)) {
-            Write-Error "MSIX file not found at $($msix.FullName)"
-            exit 1
-          }
-          echo "msix_path=$($msix.FullName)"
-          echo "msix_path=$($msix.FullName)" >> $env:GITHUB_ENV
+          dotnet publish otp/otp.csproj -c Release -p:Platform=x64
 
-      - name: Set up Cosign
+      - name: Install Cosign
         uses: sigstore/cosign-installer@v3.2.0
 
-      - name: Sign MSIX with Cosign
+      - name: Locate and Sign MSIX
         run: |
-          echo "running cosign for "$env:msix_path"
-          echo "running cosign for "$msix_path"
-          cosign sign-blob --yes --output-certificate otp.pem --output-signature otp.sig "$env:msix_path"
+          $msix = Get-ChildItem -Recurse -Filter *.msix | Select-Object -First 1
+          if (!$msix) {
+            Write-Error "MSIX file not found"
+            exit 1
+          }
 
-      - name: Upload to GitHub Release
+          echo "Found MSIX: $($msix.FullName)"
+          echo "msix_path=$($msix.FullName)" >> $env:GITHUB_ENV
+
+          cosign sign-blob --yes --output-certificate otp.pem --output-signature otp.sig "$($msix.FullName)"
+
+      - name: Upload artifacts to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
