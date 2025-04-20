@@ -30,6 +30,11 @@ jobs:
         id: locate
         run: |
           $msix = Get-ChildItem -Recurse -Filter *.msix | Select-Object -First 1
+          if (!(Test-Path $msix.FullName)) {
+            Write-Error "MSIX file not found at $($msix.FullName)"
+            exit 1
+          }
+          echo "msix_path=$($msix.FullName)"
           echo "msix_path=$($msix.FullName)" >> $env:GITHUB_ENV
 
       - name: Set up Cosign
@@ -37,6 +42,8 @@ jobs:
 
       - name: Sign MSIX with Cosign
         run: |
+          echo "running cosign for "$env:msix_path"
+          echo "running cosign for "$msix_path"
           cosign sign-blob --yes --output-certificate otp.pem --output-signature otp.sig "$env:msix_path"
 
       - name: Upload to GitHub Release
