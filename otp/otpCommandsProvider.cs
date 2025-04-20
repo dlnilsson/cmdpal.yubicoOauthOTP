@@ -8,19 +8,19 @@ using System.Collections.Generic;
 using System.IO;
 using Windows.UI.ApplicationSettings;
 
-namespace otp;
+namespace Otp;
 
-public partial class otpCommandsProvider : CommandProvider
+public partial class OtpCommandsProvider : CommandProvider
 {
     private readonly ICommandItem[] _commands;
 
-    public otpCommandsProvider()
+    public OtpCommandsProvider()
     {
         DisplayName = "OTP";
         Icon = IconHelpers.FromRelativePath("Assets\\Yubico Logo Small (PNG).png");
         _commands = [
-            new CommandItem(new otpPage()) { Title = DisplayName},
-            new CommandItem(new otpSettingsPage())
+            new CommandItem(new OtpPage()) { Title = DisplayName},
+            new CommandItem(new OtpSettingsPage())
             {
                 Title = "ykman otp settings",
                 Subtitle = "set custom ykman path or device id",
@@ -47,7 +47,7 @@ public class SettingsManager : JsonSettingsManager
         "if ykamn is in your $PATH, simply type ykman",
         string.Empty);
 
-    public string YkmanPath => _ykmanPath.Value;
+    public string YkmanPath => _ykmanPath.Value ?? string.Empty;
 
     private readonly TextSetting _device = new(
         nameof(Device),
@@ -55,7 +55,7 @@ public class SettingsManager : JsonSettingsManager
         "if you have multiple yubikeys connected at once ",
         string.Empty);
 
-    public string Device => _device.Value;
+    public string Device => _device.Value ?? string.Empty;
 
     internal static string SettingsJsonPath()
     {

@@ -7,16 +7,16 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.CommandPalette.Extensions;
 
-namespace otp;
+namespace Otp;
 
 [Guid("2f4da5b7-774e-4f4b-a16e-b3006c2ac6db")]
-public sealed partial class otp : IExtension, IDisposable
+public sealed partial class Otp : IExtension, IDisposable
 {
     private readonly ManualResetEvent _extensionDisposedEvent;
 
-    private readonly otpCommandsProvider _provider = new();
+    private readonly OtpCommandsProvider _provider = new();
 
-    public otp(ManualResetEvent extensionDisposedEvent)
+    public Otp(ManualResetEvent extensionDisposedEvent)
     {
         this._extensionDisposedEvent = extensionDisposedEvent;
     }

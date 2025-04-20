@@ -10,12 +10,12 @@ using System.Linq;
 using System.Diagnostics;
 
 
-namespace otp;
+namespace Otp;
 
 
-internal sealed partial class otpSettingsPage : ListPage
+internal sealed partial class OtpSettingsPage : ListPage
 {
-    public otpSettingsPage() { }
+    public OtpSettingsPage() { }
     public override IListItem[] GetItems()
     {
         var item = new ListItem(SettingsManager.Instance.Settings.SettingsPage)
@@ -28,13 +28,13 @@ internal sealed partial class otpSettingsPage : ListPage
     }
 }
 
-internal sealed partial class otpPage : ListPage
+internal sealed partial class OtpPage : ListPage
 {
-    private string _cachedOutput;
+    private string? _cachedOutput;
     private DateTime _lastCacheUpdate;
     private readonly TimeSpan _cacheDuration = TimeSpan.FromSeconds(10);
 
-    public otpPage()
+    public OtpPage()
     {
         Icon = IconHelpers.FromRelativePath("Assets\\Yubico.png");
         Title = "OTP";
@@ -109,7 +109,7 @@ internal sealed partial class otpPage : ListPage
         return ParseYkmanOutput(RunCommand(YkmanPath, args));
     }
 
-    public class Account
+    public sealed class Account
     {
         public required string Name { get; set; }
         public required string Code { get; set; }
