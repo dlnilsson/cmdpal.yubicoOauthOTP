@@ -11,7 +11,7 @@
   <Identity
     Name="otp"
     Publisher="CN=Daniel Nilsson, C=SE"
-    Version="0.0.2.0" />
+    Version="0.0.2.2" />
 
   <Properties>
     <DisplayName>ykman OTP</DisplayName>
